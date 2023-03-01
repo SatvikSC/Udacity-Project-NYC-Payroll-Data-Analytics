@@ -1,0 +1,59 @@
+{
+	"name": "dataflow Title to ASA",
+	"properties": {
+		"folder": {
+			"name": "Project_5"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "src_TitleMaster",
+						"type": "DatasetReference"
+					},
+					"name": "sourceTitle"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dest_ASA_Title",
+						"type": "DatasetReference"
+					},
+					"name": "sinkTitle"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          TitleCode as string,",
+				"          TitleDescription as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sourceTitle",
+				"sourceTitle sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          TitleCode as string,",
+				"          TitleDescription as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          TitleCode,",
+				"          TitleDescription",
+				"     )) ~> sinkTitle"
+			]
+		}
+	}
+}

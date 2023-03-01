@@ -1,0 +1,59 @@
+{
+	"name": "dataflow Agency to ASA",
+	"properties": {
+		"folder": {
+			"name": "Project_5"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "src_AgencyMaster",
+						"type": "DatasetReference"
+					},
+					"name": "sourceAgency"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dest_ASA_AGENCY",
+						"type": "DatasetReference"
+					},
+					"name": "sinkAgency"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          AgencyID as short,",
+				"          AgencyName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sourceAgency",
+				"sourceAgency sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          AgencyID as string,",
+				"          AgencyName as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          AgencyID,",
+				"          AgencyName",
+				"     )) ~> sinkAgency"
+			]
+		}
+	}
+}

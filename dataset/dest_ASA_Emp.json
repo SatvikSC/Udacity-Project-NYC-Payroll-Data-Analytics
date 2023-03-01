@@ -1,0 +1,33 @@
+{
+	"name": "dest_ASA_Emp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ASAProject5",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Project_5"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "EmployeeID",
+				"type": "varchar"
+			},
+			{
+				"name": "LastName",
+				"type": "varchar"
+			},
+			{
+				"name": "FirstName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "NYC_Payroll_EMP_MD"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
